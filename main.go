@@ -14,7 +14,6 @@ func main() {
 	// Connect to the target, forcing TLSv1.2
 	conn, err := tls.Dial("tcp", *host, &tls.Config{
 		InsecureSkipVerify: true,
-		Renegotiation:      tls.RenegotiateFreelyAsClient,
 		ServerName:         *servername,
 	})
 	if err != nil {
