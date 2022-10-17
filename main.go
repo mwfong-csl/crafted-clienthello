@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"cve_2021_3449/tls"
+	"crafted_clienthello/tls"
 )
 
 func main() {

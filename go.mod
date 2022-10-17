@@ -1,4 +1,4 @@
-module cve_2021_3449
+module crafted_clienthello
 
 go 1.14
 

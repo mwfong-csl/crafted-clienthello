@@ -3,12 +3,12 @@ export CFLAGS
 CXXFLAGS ?= -Og -Wall
 export CXXFLAGS
 
-IMAGE_PREFIX := local/cve-2021-3449
+IMAGE_PREFIX := local/crafted-clienthello
 UBUNTU_VERSION ?= focal
 IMAGE_INT := $(IMAGE_PREFIX)/base-$(UBUNTU_VERSION)
 IMAGE_INT_REQ := build-base-$(UBUNTU_VERSION)
 
-CONTAINER_PREFIX := cve-2021-3449
+CONTAINER_PREFIX := crafted-clienthello
 
 TARGETS := apache haproxy lighttpd nginx nodejs openssl
 
