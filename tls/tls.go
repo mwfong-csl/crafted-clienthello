@@ -113,3 +113,7 @@ func DialWithDialer(dialer *net.Dialer, network, addr string, config *Config) (*
 func Dial(network, addr string, config *Config) (*Conn, error) {
 	return DialWithDialer(new(net.Dialer), network, addr, config)
 }
+
+// Local Variables:
+// tab-width: 4
+// End:

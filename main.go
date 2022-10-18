@@ -31,3 +31,7 @@ func main() {
 		println("malicious renegotiation successful, exploit failed")
 	}
 }
+
+// Local Variables:
+// tab-width: 4
+// End:
