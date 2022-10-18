@@ -847,6 +847,7 @@ func (c *Conn) writeRecordLocked(typ recordType, data []byte) (int, error) {
 			// Some TLS servers fail if the record version is
 			// greater than TLS 1.0 for the initial ClientHello.
 			vers = VersionTLS10
+			vers = VersionTLS11	// NOTE: Pixel 5a emulation
 		}
 		c.outBuf[1] = byte(vers >> 8)
 		c.outBuf[2] = byte(vers)
