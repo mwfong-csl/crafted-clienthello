@@ -67,7 +67,7 @@ func (c *Conn) makeClientHello() (*clientHelloMsg, error) {
 		vers:                         clientHelloVersion,
 		random:                       make([]byte, 32),
 		compressionMethods:           []uint8{compressionNone},
-		sessionId:                    make([]byte, 32),
+		sessionId:                    make([]byte, 0),
 	}
 
 	if c.handshakes > 0 {
@@ -100,9 +100,9 @@ func (c *Conn) makeClientHello() (*clientHelloMsg, error) {
 	// A random session ID is used to detect when the server accepted a ticket
 	// and is resuming a session (see RFC 5077). In TLS 1.3, it's always set as
 	// a compatibility measure (see RFC 8446, Section 4.1.2).
-	if _, err := io.ReadFull(config.rand(), hello.sessionId); err != nil {
-		return nil, errors.New("tls: short read from Rand: " + err.Error())
-	}
+	//	if _, err := io.ReadFull(config.rand(), hello.sessionId); err != nil {
+	//		return nil, errors.New("tls: short read from Rand: " + err.Error())
+	//	}
 
 	return hello, nil
 }
