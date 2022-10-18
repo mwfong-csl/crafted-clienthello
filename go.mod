@@ -1,4 +1,4 @@
-module crafted_clienthello
+module github.com/mwfong-csl/crafted_clienthello
 
 go 1.14
 
