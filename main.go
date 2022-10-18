@@ -4,7 +4,7 @@ import (
 	"flag"
 	"os"
 
-	"crafted_clienthello/tls"
+	"github.com/mwfong-csl/crafted-clienthello/tls"
 )
 
 func main() {
