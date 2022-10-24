@@ -22,13 +22,13 @@ func main() {
 	}
 	defer conn.Close()
 	println("connected")
-	// Force a TLS renegotiation per RFC 5746.
+	// Send a crafted ClientHello SSL packet
 	if err := conn.Handshake(); err != nil && err.Error() == "tls: handshake failure" {
 		println("server is not vulnerable, exploit failed")
 	} else if err != nil {
-		println("malicious handshake failed, exploit might have worked: " + err.Error())
+		println("handshake failed: " + err.Error())
 	} else {
-		println("malicious renegotiation successful, exploit failed")
+		println("handshake successful")
 	}
 }
 
